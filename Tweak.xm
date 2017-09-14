@@ -52,7 +52,7 @@
 
         self.circleView = [[UIButton alloc] initWithFrame:window.bounds];
         self.circleView.alpha = 1;
-        self.circleView.layer.cornerRadius = (75/2);  // half the width/height
+        self.circleView.layer.cornerRadius = (75/2);
         self.circleView.backgroundColor = [UIColor blackColor];
 
         UITapGestureRecognizer *tapOnce = [[UITapGestureRecognizer alloc] initWithTarget:self  action:@selector(pressTheButton)];
@@ -63,12 +63,10 @@
         tapTwice.numberOfTapsRequired = 2;
         tapTrice.numberOfTapsRequired = 3;
 
-        //stops tapOnce from overriding tapTwice
         [tapOnce requireGestureRecognizerToFail:tapTwice];
         [tapTwice requireGestureRecognizerToFail:tapTrice];
 
-        //then need to add the gesture recogniser to a view - this will be the view that recognises the gesture
-        [self.circleView addGestureRecognizer:tapOnce]; //remove the other button action which calls method `button`
+        [self.circleView addGestureRecognizer:tapOnce]; 
         [self.circleView addGestureRecognizer:tapTwice];
         [self.circleView addGestureRecognizer:tapTrice];
 
@@ -98,6 +96,7 @@
 }
 %end
 
+// Stops the slide up gesture.
 %hook SBHomeGestureSettings
 -(BOOL)isHomeGestureEnabled {
   return FALSE;
